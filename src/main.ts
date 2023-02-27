@@ -2,6 +2,8 @@ import './style.css'
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Vector3 } from 'three';
+import { EnerergyTransferInputs, CausalInputs } from './interfaces';
+import { beABetterPerson, getAJob, IwillNotStartAReligeon, meetAndLearnFromAMaster, meetANewContact, motivationIncrese, orrganizeBedroom, returnToTheTable, study } from './inputs';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -14,18 +16,6 @@ pointLight.position.set( 0, 0, 0 );
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(pointLight, ambientLight);
 pointLight.position.set(3, 3, 3);
-
-interface EnerergyTransferInputs {
-  source: string;
-  initial: string;
-  final: string;
-  constraint: string;
-}
-
-interface CausalInterface {
-  trigger: string;
-  outcome: string;
-}
 
 const pointsToVetors = (points: number[][]): Vector3[] => {
   const vectors: Vector3[] = [];
@@ -106,7 +96,6 @@ const digitVectorMapping = {
   7: [1, 0, 0],
   8: [2, 0, 0],
 }
-
 
 /*
 const digitVectorMapping = {
@@ -230,15 +219,30 @@ const energyTransferInterface = (inputs: EnerergyTransferInputs) => {
   camera.position.z = 5;
 }
 
-const demonGFSigil: EnerergyTransferInputs = {
-  source: 'hunger',
-  initial: 'not knowing who my demon girlfriend is',
-  final: 'meeting my demon girlfriend',
-  constraint: 'meeting in dream'
+const causalInterface = (inputs: CausalInputs) => {
+  const R = 'picture of causal association of trigger and outcome with constraint below'
+
+  const relationship = sigilize(R, [0, -2, 0]);
+  
+  const trigger = sigilize(inputs.trigger, [-2, -2, 0]);
+  const outcome = sigilize(inputs.outcome, [2, -2, 0]);
+  //const constraint = sigilize(c, [0, -4, 0]);
+  
+  scene.background = new THREE.Color( 0xffffff );
+  
+  
+  //transfomration
+  scene.add(relationship);
+  scene.add(trigger);
+  scene.add(outcome);
+  //scene.add(constraint);
+  
+  renderer.render( scene, camera );
+  
+  camera.position.z = 5;
 }
 
-energyTransferInterface(demonGFSigil)
-
+//causalInterface(motivationIncrese);
 
 const controls = new OrbitControls( camera, renderer.domElement );
 
